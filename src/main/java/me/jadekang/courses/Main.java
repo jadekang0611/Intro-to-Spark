@@ -17,7 +17,6 @@ public class Main {
         // Make my model object
         CourseIdeaDAO dao = new SimpleCourseIdeaDAO();
 
-
         get("/", (req, res) -> {
             Map<String, String> model = new HashMap<>();
             model.put("username", req.cookie("username"));
@@ -29,7 +28,9 @@ public class Main {
             String username = req.queryParams("username");
             res.cookie("username", username);
             model.put("username", username);
-            return new ModelAndView(model, "sign-in.hbs");
+//            return new ModelAndView(model, "sign-in.hbs");
+            res.redirect("/");
+            return null;
         }, new HandlebarsTemplateEngine());
 
         get("/ideas", (req, res) -> {
