@@ -17,9 +17,22 @@ public class Main {
         // Make my model object
         CourseIdeaDAO dao = new SimpleCourseIdeaDAO();
 
+        before((req, res) -> {
+            if (req.cookie("username") != null) {
+                req.attribute("username", req.cookie("username"));
+            }
+        });
+        // TODO: jadekang - Send message about redirect...somehow.
+        before("/ideas", (req, res) -> {
+            if (req.attribute("username") == null) {
+                res.redirect("/");
+                halt();
+            }
+        });
+
         get("/", (req, res) -> {
             Map<String, String> model = new HashMap<>();
-            model.put("username", req.cookie("username"));
+            model.put("username", req.attribute("username"));
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -31,7 +44,7 @@ public class Main {
 //            return new ModelAndView(model, "sign-in.hbs");
             res.redirect("/");
             return null;
-        }, new HandlebarsTemplateEngine());
+        });
 
         get("/ideas", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
@@ -41,12 +54,11 @@ public class Main {
 
         post("/ideas", (req, res) -> {
             String title = req.queryParams("title");
-
-            // TODO: jadekang - This user name is tied to the cookie implementation
-            CourseIdea courseIdea = new CourseIdea(title, req.cookie("username"));
+            
+            CourseIdea courseIdea = new CourseIdea(title, req.attribute("username"));
             dao.add(courseIdea);
             res.redirect("/ideas");
             return null;
-        }, new HandlebarsTemplateEngine());
+        });
     }
 }
