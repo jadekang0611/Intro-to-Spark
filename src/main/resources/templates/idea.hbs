@@ -1,0 +1,19 @@
+{{#partial "content"}}
+    <h1>Check Who Voted {{ idea.title}} </h1>
+    <h2>{{ idea.voteCount}}</h2>
+    <ul>
+        {{#each idea.voters}}
+           <li>{{ this }}</li>
+        {{/each}}
+    </ul>
+
+    <form action="/ideas/{{idea.slug}}/vote" method="post">
+        <button>Vote</button>
+    </form>
+{{/partial}}
+
+{{#partial "title"}}
+    {{ idea.title }}
+{{/partial}}
+
+{{> base.hbs}}

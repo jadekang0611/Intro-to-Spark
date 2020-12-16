@@ -1,0 +1,10 @@
+me/jadekang/courses/model/NotFoundException.java
+ me.jadekang.courses.model.NotFoundException
+me/jadekang/courses/model/CourseIdea.java
+ me.jadekang.courses.model.CourseIdea
+me/jadekang/courses/model/CourseIdeaDAO.java
+ me.jadekang.courses.model.CourseIdeaDAO
+me/jadekang/courses/model/SimpleCourseIdeaDAO.java
+ me.jadekang.courses.model.SimpleCourseIdeaDAO
+me/jadekang/courses/Main.java
+ me.jadekang.courses.Main
